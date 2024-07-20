@@ -1,0 +1,42 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+<div class="row justify-content-center my-5">
+    <div class="col-md-5">
+        <div class="mt-4 p-5 bg-dark text-white rounded mb-3">
+            <h1>Посмотреть прогноз</h1>
+        </div>
+        <form action="." method="POST">
+          {% csrf_token %}
+          <div class="input-group">
+            <input type="text" required class="form-control" name="city" placeholder="Введите город">
+            <div class="input-group-append">
+              <button class="btn btn-dark" type="submit">
+                Посмотреть
+              </button>
+            </div>
+          </div>
+        </form>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="">
+                <div class="card-text float-end">{{ city_weather.time }}</div>
+                <div class="card-text"><h5>{{ city_weather.city }} {{ city_weather.country_code }}</h5></div>
+                <div class="card-text"><h6>{{ city_weather.temperature }}</h6></div>
+                <div class="card-text"><h6>{{ city_weather.description | title }}</h6></div>
+                <div class="card-text"><h6>{{ city_weather.wind }}</h6></div>
+                <div class="card-text"><h6>{{ city_weather.humidity }}</h6></div>
+            </div>
+        </div>
+        <h2>Недавний поиск</h2>
+        <ul>
+          {% for i in requests %}
+            <li>{{ i.name }}, {{ i.quantity }}</li>
+          {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="row justify-content-center my-5">
+
+</div>
+{% endblock %}
